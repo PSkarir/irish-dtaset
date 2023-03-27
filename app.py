@@ -1,3 +1,6 @@
+#install streamlit, one time execution
+#import streamlit
+import streamlit as st
 import numpy as np
 import streamlit as st
 import pandas as pd
@@ -24,8 +27,20 @@ def user_input_features():
   return features
 
 df = user_input_features()
- 
+
+st.subheader('User Input Parameters')
+st.write(df)
+
+iris = datasets.load_iris()
+X = iris.data
+Y = iris.target
+
+classifier = RandomForestClassifier()
+classifier.fit(X, Y)
+
+prediction = classifier.predict(df)
 prediction_probabilities = classifier.predict_proba(df)
+
 
 st.subheader('Prediction')
 st.write(iris.target_names[prediction])
@@ -35,8 +50,3 @@ st.write(iris.target_names)
 
 st.subheader('Prediction Probability')
 st.write(prediction_probabilities)
-
-
-
-
-
